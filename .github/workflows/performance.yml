@@ -1,9 +1,10 @@
-name: Performance Pipeline
+name: Performance CI Pipeline
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   performance-test:
@@ -13,34 +14,27 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.11'
-
-      - name: Install Python Dependencies
-        run: |
-          pip install reportlab
-
       - name: Install k6
         run: |
           sudo apt update
+          sudo apt install -y gnupg software-properties-common
+          curl -s https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6.gpg
+          echo "deb [signed-by=/usr/share/keyrings/k6.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt update
           sudo apt install -y k6
 
-      - name: Run k6 Performance Test
+      - name: Run Load Test
         run: |
-          k6 run --summary-export=results_current.json scenarios/load.js
+          k6 run scenarios/load.js --summary-export=results_current.json
 
-      - name: Generate AI Performance Summary
+      - name: Generate AI Summary
         run: |
-          python summarize_results.py
+          python3 summarize_results.py
 
-      - name: Upload Artifacts
-        if: always()
-        uses: actions/upload-artifact@v3
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
         with:
-          name: performance-reports
+          name: performance-report
           path: |
-            *.json
-            *.md
-            *.pdf
+            performance_report.md
+            performance_report.pdf
