@@ -1,0 +1,46 @@
+name: Performance Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  performance-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Python Dependencies
+        run: |
+          pip install reportlab
+
+      - name: Install k6
+        run: |
+          sudo apt update
+          sudo apt install -y k6
+
+      - name: Run k6 Performance Test
+        run: |
+          k6 run --summary-export=results_current.json scenarios/load.js
+
+      - name: Generate AI Performance Summary
+        run: |
+          python summarize_results.py
+
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-reports
+          path: |
+            *.json
+            *.md
+            *.pdf
