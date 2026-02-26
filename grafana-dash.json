@@ -1,0 +1,42 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "k6-metrics",
+    "title": "k6 Load Test Metrics",
+    "timezone": "browser",
+    "panels": [
+      {
+        "type": "graph",
+        "title": "p95 Latency",
+        "targets": [
+          {
+            "expr": "histogram_quantile(0.95, sum(rate(k6_http_req_duration_bucket[1m])) by (le))",
+            "legendFormat": "p95 latency"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "RPS",
+        "targets": [
+          {
+            "expr": "sum(rate(k6_http_reqs[1m]))",
+            "legendFormat": "RPS"
+          }
+        ]
+      },
+      {
+        "type": "graph",
+        "title": "Error Rate (%)",
+        "targets": [
+          {
+            "expr": "sum(rate(k6_http_req_failed[1m])) / sum(rate(k6_http_reqs[1m])) * 100",
+            "legendFormat": "Error rate"
+          }
+        ]
+      }
+    ],
+    "schemaVersion": 30,
+    "version": 1
+  }
+}
