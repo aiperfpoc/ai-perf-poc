@@ -1,0 +1,38 @@
+# -----------------------------
+# Performance Test Generated Files
+# -----------------------------
+results_current.json
+previous.json
+*.json
+
+performance_report.pdf
+performance_report.md
+*.pdf
+*.md
+
+# -----------------------------
+# Python
+# -----------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+venv/
+
+# -----------------------------
+# k6
+# -----------------------------
+*.log
+
+# -----------------------------
+# OS Files
+# -----------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# IDE / Editor
+# -----------------------------
+.vscode/
+.idea/
