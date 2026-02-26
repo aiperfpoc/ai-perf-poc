@@ -46,3 +46,4 @@ jobs:
           path: |
             performance_report.md
             performance_report.pdf
+            results_current.json
