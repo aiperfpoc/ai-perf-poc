@@ -22,6 +22,14 @@ jobs:
           echo "deb [signed-by=/usr/share/keyrings/k6.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list
           sudo apt update
           sudo apt install -y k6
+      
+      - name: Install python3
+        uses  actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install Python Dependencies
+        run: |
+          pip install reportlab
 
       - name: Run Load Test
         run: |
