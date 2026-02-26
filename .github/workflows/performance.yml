@@ -25,10 +25,12 @@ jobs:
 
       - name: Run Load Test
         run: |
+          cd perf-tests
           k6 run scenarios/load.js --summary-export=results_current.json
 
       - name: Generate AI Summary
         run: |
+          cd perf-tests/scenarios
           python3 summarize_results.py
 
       - name: Upload Report
