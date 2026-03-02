@@ -1,9 +1,6 @@
 # -----------------------------
 # Performance Test Generated Files
 # -----------------------------
-results_current.json
-previous.json
-*.json
 
 performance_report.pdf
 performance_report.md
