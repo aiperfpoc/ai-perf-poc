@@ -107,8 +107,8 @@ def generate_pdf(content):
 # Main Execution
 # -------------------------
 def main():
-    prev_metrics = load_metrics("../../previous.json")
-    curr_metrics = load_metrics("../../results_current.json")
+    prev_metrics = load_metrics("previous.json")
+    curr_metrics = load_metrics("results_current.json")
  
     report_content, regression_flag = generate_summary(prev_metrics, curr_metrics)
  
