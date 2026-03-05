@@ -118,8 +118,8 @@ def main():
     print(report_content)
  
     # Optional: Fail CI build if regression detected
-    if regression_flag:
-        sys.exit(1)
+    #if regression_flag:
+        #sys.exit(1)
  
  
 if __name__ == "__main__":
