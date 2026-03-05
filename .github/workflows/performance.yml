@@ -37,7 +37,7 @@ jobs:
 
       - name: Generate AI Summary
         run: |
-          python3 scenarios/summarize_results.py
+          python3 perf-tests/scenarios/summarize_results.py
 
       - name: Upload Report
         uses: actions/upload-artifact@v4
